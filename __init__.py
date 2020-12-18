@@ -1,34 +1,18 @@
-from flask import Flask, render_template, url_for, session, flash
+from flask import Flask, render_template, url_for, session, flash, request
 import json, string, random, hashlib
 
 # Mongo Database import connection
-from flask_mongoengine import MongoEngine
-#import pymongo
-#from pymongo import MongoClient
-#import dnspython
+from flask_pymongo import pymongo
 
 from functools import wraps
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
 
-# Mongo DB Connection
-#cluster = MongoClient("mongodb+srv://Roisin:DFM5CauDv8K9tXpY@cluster0.b528o.mongodb.net/home_safe?retryWrites=true&w=majority")
-#db = cluster["home_safe"]
-#collection = db["electricity_usage"], db["temp_usage"], db["users"]
-#db = cluster(app)
 
-# Mongo Database Config
-app.config['MONGOBD_SETTINGS']={
-    'db':'home_safe',  # will use test
-    'host':'localhost',
-    'port':27017
-}
-db = MongoEngine()
-db.init_app(app)
+# Mongo DB Connection in db.py file
 
-#from . import homesafeDB, temperatureDB, electricityDB, PB
-from . import PB, mongoDB
+from . import db, PB
 
 alive = 0
 data = {}
@@ -36,129 +20,139 @@ data = {}
 # Grant read and write access to the authkey "SD3b-Raspberry-Pi" - More than One Pi
 PB.grant_access("Homesafe-Matthew-Raspberry-Pi", True, True)  # Matthew's Pi Connection to read & write
 PB.grant_access("Homesafe-Finbar-Raspberry-Pi", True, True)  # Finbar's Pi Connection to read & write
+PB.grant_access("Homesafe-Aisling-Raspberry-Pi", True, True)  # Aisling's Pi Connection to read & write
+PB.grant_access("Homesafe-Roisin-Raspberry-Pi", True, True)  # Roisin's Pi Connection to read & write
+PB.grant_access("FarmCharts", True, True)  # Roisin's Pi Connection to read & write
+
+# test to insert data to the data base
+@app.route("/test")
+def test():
+    db.db.user.insert_one({"name":"Roisin"})
+    return "Connected to the database"
 
 
-@app.route("/")
+@app.route("/", methods=['POST', 'GET'])
 def index():
-    clear_user_session()
+    # if 'firstName' in session:
+    #     return 'You are logged in as ' + session['firstName']
     return render_template("index.html")
-
-
-# User login
-@app.route("/user_login")
-def user_login():
-    if not User.authorised:
-        print("Not authorized, redirecting....")
-        return redirect(url_for('create.html'))
-
-    account_info = User.get('/me')
-    if account_info.ok:
-        print("User Logged In")
-        me = account_info.json()
-        session['logged_in'] = True
-        session['user'] = me['name']
-        session['user_id'] = me['id']
-        return redirect(url_for('main'))
-
-    return redirect(url_for('index'))
+    #db.db.users.find({'firstName' : request.form.get('firstName'), 'password' : request.form.get('password')})
+    #clear_user_session()
+    #return render_template("index.html")
 
 
 def clear_user_session():
-    session['logged_in'] = None
-    session['user'] = None
-    session['user_id'] = None
-
-
-@app.route("/", methods = ['POST', 'GET'])
-def login():
-    clear_user_session()
-    render_template("index.html")
+    session['firstName'] = None
+    session['password'] = None
+    #session['user_id'] = None
 
 
 def LoginRequired(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
-        if 'logged_in' in session:
-            if session['logged_in']:
-                return f(*args, **kwargs)
-        flash("Please login first")
-        return redirect(url_for('index'))
-
+        if db.db.users.find_one({'firstName': 'firstName'}):
+            return f(*args, **kwargs)
+            return 'User there'
+        else:
+            flash("Please login first")
+            return redirect(url_for('index'))
     return wrapper
 
 
 # Create account route
-@app.route("/create")
+@app.route("/create", methods=['POST', 'GET'])
 def create():
+    db.db.users.insert({'firstName': request.form.get('firstName'), 'surname': request.form.get('surname'),
+    'address': request.form.get('address'), 'dateOfBirth': request.form.get('dateOfBirth'),
+    'emailAddress': request.form.get('emailAddress'), 'gender': request.form.get('gender'), 'password': request.form.get('password'),
+    'phoneNumber': request.form.get('phoneNumber'), 'postCode': request.form.get('postCode')})
     return render_template("create.html")
 
 
 # Dashboard route
 @app.route("/dashboard")
+#@LoginRequired
 def dashboard():
     return render_template("dashboard.html")
 
 
 # Electricity route
 @app.route("/electricity")
+#@LoginRequired
 def electricity():
     return render_template("electricity.html")
 
 
 # Temperature route
 @app.route("/temperature")
+#@LoginRequired
 def temperature():
     return render_template("temperature.html")
 
 
 # Settings route
 @app.route("/settings")
+#@LoginRequired
 def settings():
     return render_template("settings.html")
 
 
-# Notification route
-@app.route("/notification")
-def notification():
-    return render_template("notification.html")
-
-
 # Running Bill route
 @app.route("/runningbill")
+#@LoginRequired
 def runningbill():
     return render_template("runningbill.html")
 
 
-# James View ( Secondary User - avgtemperature & avgelectricity routes)
+@app.route("/colorscheme")
+#@LoginRequired
+def colorscheme():
+    return render_template("colorscheme.html")
+
+
+# James View ( Secondary User )
+# avgtemperature route
 @app.route("/avgtemperature")
+# @LoginRequired
 def average_temperature():
     return render_template("avgtemperature.html")
 
 
+# avgelectricity route
 @app.route("/avgelectricity")
+# @LoginRequired
 def average_electricity():
     return render_template("avgelectricity.html")
 
 
+# Color Scheme James route
+@app.route("/colorschemejames")
+# @LoginRequired
+def colorschemejames():
+    return render_template("colorschemejames.html")
+
+
+# Notification route
+@app.route("/notification")
+#@LoginRequired
+def notification():
+    return render_template("notification.html")
+
+
 # Logout route
 @app.route("/logout")
-@LoginRequired
+#@LoginRequired
 def logout():
-    mongoDB.userLogout(session['user_id'])
-    mongoDB.viewAll()
     clear_user_session()
     flash("You just logged out")
-    return redirect(url_for("/"))
+    return redirect(url_for("/main"))
 
 
 # Required route
 @app.route("/main")
-@LoginRequired
+#@LoginRequired
 def main():
-    flash(session["user"])
-    mongoDB.addUserAndLogin(session['user'], int(session['user_id']))
-    mongoDB.viewAll()
-    return render_template("index.html", user_id=session['user_id'], online_users=mongoDB.getAllLoggedInUsers())
+    return render_template("index.html")
 
 
 def str_to_bool(s):
