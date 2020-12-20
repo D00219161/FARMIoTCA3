@@ -294,21 +294,24 @@ void sendSensorData() {
   Serial.println(" *C");
 
   // MQTT can only transmit strings
-  String hs="Hum: "+String((float)h)+" % ";
-  String ts="Temp: "+String((float)t)+" C ";
+  String hs=String((float)h);
+  String ts=String((float)t);
+  String msg = ts + "," + hs;
 
+  Serial.println("msg:\t" + msg);
   // PUBLISH to the MQTT Broker (topic = Temperature, defined at the beginning)
-  if (client.publish(temperature_topic, String(t).c_str())) {
+  if (client.publish(temperature_topic, String(msg).c_str())) { // (t)
     Serial.println("Temperature sent!");
   }
   else {
     Serial.println("Temperature failed to send. Reconnecting to MQTT Broker and trying again");
     client.connect(clientID, mqtt_username, mqtt_password);
     delay(10); // This delay ensures that client.publish doesn't clash with the client.connect call
-    client.publish(temperature_topic, String(t).c_str());
+    client.publish(temperature_topic, String(msg).c_str());
   }
 
   // PUBLISH to the MQTT Broker (topic = Humidity, defined at the beginning)
+  /*
   if (client.publish(humidity_topic, String(h).c_str())) {
     Serial.println("Humidity sent!");
   }
@@ -318,6 +321,7 @@ void sendSensorData() {
     delay(10); // This delay ensures that client.publish doesn't clash with the client.connect call
     client.publish(humidity_topic, String(h).c_str());
   }
+  */
   client.disconnect();  // disconnect from the MQTT broker
   delay(1000*60);       // print new values every 1 Minute
 
