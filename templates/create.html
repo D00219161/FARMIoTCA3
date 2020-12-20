@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset = "UTF-8">
+	<title> Create Account </title>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+	<link rel ="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+	<script>
+	function myFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
+</head>
+<body>
+<div class="header">
+		<img src="static/img/logo.jpg" alt="logo"/>
+		<h1> HomeSafe <br>
+			 Create Account </h1>
+	</div>
+		<form method="POST" action="/create" enctype="mutlipart/form-data">
+		<h3>First Name <label for="fName" required>
+			<input type="textbox" id="fname" name="firstName" placeholder="James"></label></h3>
+		<h3>Surname <label for="sname" required>
+			<input type="textbox" id="sname" name="surname" placeholder="McPhillips"></label></span></h3>
+		<h3>Phone Number <label for="phoneNumber" required>
+			<input type="textbox" id="phoneNumber" name="phoneNumber" placeholder="086 3431287"></label></span></h3>
+		<h3>Address <label for="address" required>
+			<input type="textbox" id="address" name="address" placeholder="Beechmount, Belturbet, Co. Cavan"></label></span></h3>
+		<h3>Postal Code <label for="postCode" required>
+			<input type="textbox" id="postcode" name="postCode" placeholder="TRZ23XY8"></label></span></h3>
+		<h3>Date Of Birth <label for="dob" required>
+			<input type="textbox" id="dob" name="dateOfBirth" placeholder="06/05/1980"></label></span></h3>
+		<h3>Gender<label for="gender" required>
+			<input type="textbox" id="gender" name="gender" placeholder="Male"></label></span></h3>
+		<h3>Password<label for="password" required>
+			<input type="password" id="password" name="password" placeholder="H763hswd!">
+			<input type="checkbox" onclick="myFunction()">Show Password</label></span></h3>
+		<h3>Email Address (Optional)<label for="emailAddress" required>
+			<input type="textbox" id="emailAddress" name="emailAddress" placeholder="users@gmail.com"></label></span></h3>
+
+		<input type="submit" value="Save Changes" id="enter" onclick="handleClick(this);">
+			<button class="button login"><a href="/">Login</a></button>
+		</form>
+
+</body>
+</html>

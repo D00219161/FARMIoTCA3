@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "UTF-8">
+	<title> Login </title>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+	<script src="static/js/main.js"></script>
+	<link rel ="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+<script>
+	function myFunction() {
+  var x = document.getElementById("password");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+</script>
+</head>
+<body>
+<div class="header">
+		<img src="static/img/logo.jpg" alt="logo"/>
+		<h1> HomeSafe <br>
+		Login</h1>
+	</div>
+		<form method="POST" action="/" enctype="multipart/form-data">
+		<h3>User <label for="user" required>
+			<input type="textbox" id="user" name="firstName" placeholder="Enter your username"></label></h3>
+		<h3>Password <label for="password">
+			<input type="password" id="password" name="password" placeholder="Enter your password">
+			<input type="checkbox" onclick="myFunction()">Show Password</label></span></h3>
+			{% if not session.logged_in %}
+			<label><input type="button" id="login" onclick="handleClick(this);">Login</label>
+    		<button class="button login" onclick="handleClick(this);"><a href="/dashboard">Enter</a></button>
+			{% else %}
+   			 <a href="/create"></a>
+			{% endif %}
+		</form>
+<footer><button class="button login"><a href="/create">Create Account</a></button></footer>
+</body>
+</html>
