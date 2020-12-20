@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Notification</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+<style>
+.h1{
+    text-align: center;
+    font-style: bold;
+    color: black;
+}
+
+.p{
+  text-align: center;
+  font-style: italic;
+  font-size: 25px;
+  color: black;
+}
+
+</style>
+<body>
+<nav id="nav">
+    <ul>
+        <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+        <h2>Homesafe</h2>
+        <li><a href="/avgelectricity">Average Electricity</a></li>
+        <li><a href="/avgtemperature">Average Temperature</a></li>
+         <li><a href="/colorschemejames">Colour Scheme</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="columndate">
+            <label>Calendar: </label>
+            <input type="date" id="input">
+        </div>
+    </div>
+    <button class="button logout"><a href="/">Logout</a></button>
+    <button class="button notification"><a href="/notification">Notification</a></button>
+</div>
+
+<h1>
+    Notification
+</h1>
+<p>
+    Oliver has gone over budget by €10.00
+</p>
+<p>
+    Average usage exceed by 30 units
+</p>
+</body>
+</html>

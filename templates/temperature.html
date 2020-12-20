@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+
+</head>
+<style>
+
+.dot {
+  height: 200px;
+  width: 200px;
+  background-color: #FFA500;
+  border-radius: 50%;
+  position: relative;
+  padding-top:15px;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  color: white;
+  top: 120px;
+  right: 150px;
+}
+
+.dot1 {
+  height: 200px;
+  width: 200px;
+  background-color: #3DC631;
+  border-radius: 50%;
+  position: relative;
+  padding-top:5px;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  color: white;
+  top: 135px;
+  left: -550px;
+}
+
+.dot2 {
+  height: 200px;
+  width: 200px;
+  background-color: #DCE124;
+  border-radius: 50%;
+  position: relative;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  color: white;
+  top: 360px;
+  right: -500px;
+}
+
+.dot3 {
+  height: 200px;
+  width: 200px;
+  background-color: #305EC9;
+  border-radius: 50%;
+  position: relative;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  color: white;
+  top: 420px;
+  right: -300px;
+}
+
+.dot4 {
+  height: 200px;
+  width: 200px;
+  background-color: #6053D4;
+  border-radius: 50%;
+  position: relative;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  color: white;
+  top: 450px;
+  right: -100px;
+}
+</style>
+<body>
+<nav id="nav">
+    <ul>
+        <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+        <h2>Homesafe</h2>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/electricity">Electricity Usage</a></li>
+        <li><a class="active" href="/temperature">Temperature Analysis</a></li>
+        <li><a href="/runningbill">Running Bill</a></li>
+        <li><a href="/colorscheme">Colour Scheme</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="columndate">
+            <label>Calendar: </label>
+            <input type="date" id="input">
+        </div>
+    </div>
+    <button class="button logout"><a href="/">Logout</a></button>
+    <button class="button settings"><a href="/settings">Settings</a></button>
+</div>
+<div style="text-align:center">
+  <span class="dot">
+      <p>Living Room
+
+      18°C
+      </p>
+  </span>
+  <span class="dot1">
+        <p>Average Temperature
+
+
+            20°C</p>
+  </span>
+ <span class="dot2">
+      <p>Master Bedroom
+
+
+      16°C
+      </p>
+  </span>
+ <span class="dot3">
+      <p>Kitchen
+
+
+      14°C
+      </p>
+ </span>
+    <span class="dot4">
+      <p>Hallway
+
+
+      12°C
+      </p>
+ </span>
+</div>
+</body>
+</html>

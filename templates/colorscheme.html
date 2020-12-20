@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel ="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+<body>
+<nav id="nav">
+<ul>
+    <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+    <h2>Homesafe</h2>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/electricity">Electricity Usage</a></li>
+    <li><a href="/temperature">Temperature Analysis</a></li>
+    <li><a href="/runningbill">Running Bill</a></li>
+    <li><a class="active" href="/colorscheme">Colour Scheme</a></li>
+</ul>
+</nav>
+
+
+<div class="row">
+<div class="columndate">
+    <label>Calendar: </label>
+    <input type="date" id="input">
+</div>
+</div>
+    <button class="button settings"><a href="/settings">Settings</a></button>
+    <button class="button logout"><a href="/">Logout</a></button>
+<div>
+    <p>
+    <p>
+    <h3>Colour Scheme For Room Temperature</h3>
+    <img src="static/img/green.jpg" alt="green" id="img1"/>
+    <p><h4>Green, Average Temperature</h4></p>
+    <img src="static/img/red.jpg" alt="red" id="img2"/>
+    <img src="static/img/orange.jpg" alt="orange" id="img3"/>
+    <img src="static/img/yellow.jpg" alt="yellow" id="img4"/>
+   <p> <h4>Red, Orange, Yellow -
+        Shows different versions of warm,
+        Red being the hottest
+    and yellow being the least hot. </h4></p>
+    <img src="static/img/blue.jpg" alt="blue" id="img5"/>
+    <img src="static/img/darkpurple.jpg" alt="darkpurple" id="img6"/>
+    <img src="static/img/purple.jpg" alt="purple" id="img7"/>
+    <p> <h4>Blue, Violet, Indigo -
+            Shows different versions of cold,
+            Indigo being the coldest
+            and Blue being the least cold. </h4></p>
+    </p>
+</div>
+</body>
+</html>
