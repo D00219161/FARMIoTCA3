@@ -1,0 +1,389 @@
+body{
+	background-color: #FFF;
+	height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	text-align: center;
+	margin: auto;
+	font-family: "Titillium Web", sans-serif;
+}
+html{
+	height: 100%;
+}
+
+/*Login & Create Page Styling*/
+.header{
+text-align: center
+}
+
+.container h2{
+    text-align:center;
+}
+
+.submit{
+background-color: #4CAF50
+text-align: center;
+width: 200px;}
+
+form h3{
+text-align: center;}
+
+input[type=textbox] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;}
+
+.title{
+text-align: center;
+font-size: 40px;
+margin: 4px 2px;
+color: #000000;
+}
+
+/*Nav Bar Element Styling for all main pages*/
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 250px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+nav li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 0 0 20px 0;
+  border-radius: 20px;
+}
+
+nav li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+nav li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+  margin: 0 0 20px 0;
+}
+
+nav logo{
+    float: left;
+    }
+
+nav h2{
+    float: right;
+    margin-right: inherit;
+    }
+
+/*Dashboard styling*/
+happy{
+height: 150px;
+width: 200px;}
+
+section h2{
+text-align: center;}
+
+.columndate {
+  float: left;
+  padding-top: 1em;
+  width: 50%;
+  height: 60px
+  background-color:#fff;
+}
+
+.column1 {
+  float: left;
+  width: 50%;
+  background-color:#fff;
+}
+
+.column1 .dotavg {
+  height: 300px;
+  width: 300px;
+  background-color: #3DC631;
+  border-radius: 50%;
+  display: inline-block;
+  float: right;
+  position: absolute;
+  padding-top: 15px;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  top: 135px;
+  right:80px;
+  color: white;
+}
+
+.column1 a{
+text-decoration: none;
+        color: blue;
+}
+
+.column2 {
+  position: relative;
+  width: 50%;
+  padding: 5px;
+  height: 100px
+  background-color:#fff;
+  right: -300px;
+}
+
+.column2 .boxed{
+  border: 10px solid green;
+  width: 320px;
+  height: 420px;
+  text-align: center;
+  font-size: 20px;
+  top: 135px;
+  left: 80px;
+}
+
+/*.column1 .boxed{
+  border: 10px solid green;
+  width: 300px;
+  height: 450px;
+  text-align: center;
+  font-size: 20px;
+  float: right;
+}*/
+
+/*Button styling for main pages*/
+container{
+position: inherit;
+width: 100%;
+height: 100%;
+}
+
+.button {
+  background-color: #FF3B31; /* Red */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;#
+  float: right;
+  border-radius: 15px;
+  text-decoration: none;
+}
+
+.settings a{
+text-decoration: none;
+        color: white;
+}
+
+form .login a{
+text-decoration: none;
+        color: white;
+}
+
+footer .login a{
+text-decoration: none;
+        color: white;
+}
+
+.notification a{
+text-decoration: none;
+        color: white;
+        }
+
+.logout a{
+text-decoration: none;
+        color: white;
+}
+
+input.settings {
+        float: right;
+        text-decoration: none;
+        color: white;
+      }
+
+input.logout {
+        float: right;
+        text-decoration: none;
+        color: white;
+      }
+
+input{
+  overflow: hidden;}
+
+/*Running Bill Page Styling*/
+.edit{
+width: 100px;
+height: 50px;
+background-color: #00BBFF;
+text-color: #fff;
+font-size: 20px;
+float: right;}
+
+.column1 .edit{
+float: right;}
+
+.container .logout {
+float: right;}
+
+.container .settings {
+float: right;}
+
+h2 {
+text-align: center;
+}
+
+.column2 .button1{
+height: 75px;
+width: 100%;
+background-color: #707070;
+opacity: 50%;
+text-color: #fff;
+font-size: 20px;
+float: right;
+ext-align: center;
+display: inline-block;}
+
+.column1 .rectangle {
+  height: 600px;
+  width: 500px;
+  background-color: #069D1F;
+  display: inline-block;
+  float: right;
+  position: absolute;
+  padding-top: 15px;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  top: 135px;
+  right:80px;
+}
+
+/*Logout page styling*/
+.logout h1, p{
+text-align: center;}
+
+/*Images Styling*/
+img1{
+    float:left;
+}
+
+img2{
+    float:left;
+}
+
+img3{
+    float:left;
+}
+
+img4{
+    float:left;
+}
+img5{
+    float:left;
+}
+
+img6{
+    float:left;
+}
+
+img7{
+    float:left;
+}
+
+.note {
+  margin: 5vw;
+  padding: 0.5em;
+  border-left: 0.5em solid #52e052;
+  background: #e9fbe9;
+}
+
+.note a {
+  text-decoration: none;
+  color: #161b1e;
+}
+
+.note a:hover {
+  text-decoration: underline;
+}
+
+.dot {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  position: absolute;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 45px;
+  color: white;
+  top: 135px;
+  right:80px;
+}
+
+.dot1 {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  position: absolute;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 45px;
+  color: white;
+  top: 135px;
+  left: 280px;
+}
+
+.dot2 {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  position: absolute;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 45px;
+  color: white;
+  top: 455px;
+  right:80px;
+}
+
+.dot3 {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  position: absolute;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 45px;
+  color: white;
+  top: 775px;
+  right:80px;
+}
+
+
+
+.dot {
+  height: 300px;
+  width: 300px;
+  border-radius: 50%;
+  position: relative;
+  padding-top:15px;
+  float: right;
+  text-align: center;
+  font-style: italic;
+  font-size: 45px;
+  color: white;
+  top: 135px;
+}
