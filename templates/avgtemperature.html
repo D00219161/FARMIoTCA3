@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+<style>
+.dotTemp {
+  height: 450px;
+  width: 450px;
+  background-color: #3DC631;
+  border-radius: 50%;
+  position: absolute;
+  padding-top:25px;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  color: white;
+  top: 120px;
+  right: 475px;
+}
+</style>
+<body>
+<nav id="nav">
+    <ul>
+        <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+        <h2>Homesafe</h2>
+        <li><a href="/avgelectricity">Average Electricity </a></li>
+        <li><a class="active" href="/avgtemperature">Average Temperature</a></li>
+         <li><a href="/colorschemejames">Colour Scheme</a></li>
+    </ul>
+</nav>
+
+
+    <div class="row">
+        <div class="columndate">
+            <label>Calendar: </label>
+            <input type="date" id="input">
+        </div>
+    </div>
+    <button class="button notification"><a href="/notification">Notification</a></button>
+    <button class="button logout"><a href="/">Logout</a></button>
+</div>
+
+
+  <div class="dotTemp">
+      <p>Average Temperature</p>
+      <p>
+      18°C
+      </p>
+  </div>
+</div>
+</body>

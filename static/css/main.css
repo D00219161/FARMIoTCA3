@@ -264,6 +264,21 @@ display: inline-block;}
   right:80px;
 }
 
+.column1 .square {
+  height: 600px;
+  width: 700px;
+  background-color: #069D1F;
+  display: inline-block;
+  position: absolute;
+  padding-top: 15px;
+  text-align: center;
+  font-style: italic;
+  font-size: 30px;
+  top: 135px;
+  right:400px;
+}
+
+
 /*Logout page styling*/
 .logout h1, p{
 text-align: center;}

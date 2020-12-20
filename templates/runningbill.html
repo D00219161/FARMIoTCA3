@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "UTF-8">
+    <title>Running Bill</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+	<script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+	<link rel ="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
+</head>
+<body>
+<nav id="nav">
+<ul>
+    <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+    <h2>Homesafe</h2>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/electricity">Electricity Usage</a></li>
+    <li><a href="/temperature">Temperature Analysis</a></li>
+    <li><a class="active" href="/runningbill">Running Bill</a></li>
+    <li><a href="/colorscheme">Colour Scheme</a></li>
+</ul>
+</nav>
+
+<div class="row">
+<div class="columndate">
+    <label>Calendar: </label>
+    <input type="date" id="input">
+</div>
+</div>
+    <button class="button settings"><a href="/settings">Settings</a></button>
+    <button class="button logout"><a href="/">Logout</a></button>
+
+<div class="row">
+<div class="column2">
+    <h2>Target set €150 <button class="button settings"><a href="/settings">Edit</a></button></h2>
+      <div class="boxed">
+    <h2>Total Costs This Bill</h2>
+      <p>1st October - 1st December</p>
+      <h3>€50.70</h3>
+      <img src="static/img/Happy.jpg" alt="happy face" id="happy"/>
+      </div>
+  </div>
+	<div class="column1">
+        <div class="rectangle">
+			<button class="button button1">< Change Week ></button>
+            <div id = "lightchart"></div>
+	<script>
+	var __eon_pubnub = new PubNub({
+	  subscribeKey: "sub-c-12924b4c-2f48-11eb-9713-12bae088af96",
+	  authKey: "Homesafe-Finbar-Raspberry-Pi",
+	  cipherKey: "myCipherKey"
+	});
+        eon.chart({
+              pubnub: __eon_pubnub,
+              channels: ["Homesafe"],
+              generate: {
+                bindto: '#lightchart',
+                data: {
+                  type: 'gauge',
+                },
+                gauge: {
+                  min: 0,
+                  max: 100
+                },
+                color: {
+                  pattern: ['#2eff00', '#ffee00', '#ff1900'],
+                  threshold: {
+                    values: [30, 50, 70]
+                  }
+                }
+              },
+              transform: function(m) {
+                var msg = JSON.stringify(m);
+		console.log(msg)
+                var json_data = JSON.parse(msg);
+                if(json_data.hasOwnProperty('atmos')){
+                    return { eon: {
+                      light: json_data.atmos.tempC
+                    }}
+                }
+              }
+            });
+	</script>
+    <div id = "atmosphere"></div>
+<script>
+	var __eon_cols = ["tempC","hum"];
+    var __eon_labels = {};
+    chart = eon.chart({
+      pubnub: __eon_pubnub,
+      channels: ["Homesafe"],
+      history: false,
+      flow: true,
+      rate: 2000,
+      limit: 2,
+      generate: {
+        bindto: "#atmosphere",
+        data: {
+          colors: {"tempC":"#D70060","hum":"#F18D05"},
+          type: "spline"
+        },
+        transition: {
+          duration: 1000
+        },
+        axis: {
+          x: {
+            label: ""
+          },
+          y: {
+            label: ""
+          }
+        },
+        grid: {
+          x: {
+            show: false
+          },
+          y: {
+            show: false
+          }
+        },
+        tooltip: {
+         show: true
+        },
+        point: {
+          show: false
+        }
+      },
+      transform: function(message) {
+        var msg = JSON.stringify(message);
+	console.log("Data is " + msg);
+        var json_data = JSON.parse(msg);
+	console.log("Data received: " + json_data)
+        if(json_data.hasOwnProperty('atmos')){
+            var message = eon.c.flatten(message.atmos);
+            var o = {};
+            for(index in message) {
+              if(__eon_cols.indexOf(index) > -1){
+                o[__eon_labels[index] || index] = message[index];
+              }
+             }
+            return {
+              eon: o
+            };
+       }
+      }
+    });
+</script>
+    </div>
+    </div>
+</div>
+</body>
+</html>

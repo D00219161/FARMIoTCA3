@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+	<link rel ="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.0.0/eon.css" />
+</head>
+<body>
+<nav id="nav">
+    <ul>
+        <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+        <h2>Homesafe</h2>
+        <li><a class="active" href="/avgelectricity">Average Electricity </a></li>
+        <li><a href="/avgtemperature">Average Temperature</a></li>
+        <li><a href="/colorschemejames">Colour Scheme</a></li>
+
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="columndate">
+            <label>Calendar: </label>
+            <input type="date" id="input">
+        </div>
+    </div>
+    <button class="button notification"><a href="/notification">Notification</a></button>
+    <button class="button logout"><a href="/">Logout</a></button>
+</div>
+<h2>Average Electricity Usage</h2>
+<div class="column1">
+        <div class="square">
+            <div id = "electricity"></div>
+	<script>
+	var __eon_pubnub = new PubNub({
+	  subscribeKey: "sub-c-12924b4c-2f48-11eb-9713-12bae088af96",
+	  authKey: "Homesafe-Matthew-Raspberry-Pi",
+	  cipherKey: "myCipherKey"
+	});
+        eon.chart({
+              pubnub: __eon_pubnub,
+              channels: ["Homesafe"],
+              generate: {
+                bindto: '#electricity',
+                data: {
+                  type: 'gauge',
+                },
+                gauge: {
+                  min: 0,
+                  max: 100
+                },
+                color: {
+                  pattern: ['#2eff00', '#ffee00', '#ff1900'],
+                  threshold: {
+                    values: [30, 50, 70]
+                  }
+                }
+              },
+              transform: function(m) {
+                var msg = JSON.stringify(m);
+		console.log(msg)
+                var json_data = JSON.parse(msg);
+                if(json_data.hasOwnProperty('electricity')){
+                    return { eon: {
+                      light: json_data.electricity.amps
+                    }}
+                }
+              }
+            });
+	</script>
+    <div id = "electricityChart"></div>
+<script>
+	var __eon_cols = ["amps","kilowatts"];
+    var __eon_labels = {};
+    chart = eon.chart({
+      pubnub: __eon_pubnub,
+      channels: ["Homesafe"],
+      history: false,
+      flow: true,
+      rate: 2000,
+      limit: 2,
+      generate: {
+        bindto: "#electricityChart",
+        data: {
+          colors: {"Amps":"#D70060","Kilowatts":"#F18D05"},
+          type: "spline"
+        },
+        transition: {
+          duration: 1000
+        },
+        axis: {
+          x: {
+            label: ""
+          },
+          y: {
+            label: ""
+          }
+        },
+        grid: {
+          x: {
+            show: false
+          },
+          y: {
+            show: false
+          }
+        },
+        tooltip: {
+         show: true
+        },
+        point: {
+          show: false
+        }
+      },
+      transform: function(message) {
+        var msg = JSON.stringify(message);
+	console.log("Data is " + msg);
+        var json_data = JSON.parse(msg);
+	console.log("Data received: " + json_data)
+        if(json_data.hasOwnProperty('electricityChart')){
+            var message = eon.c.flatten(message.electricityChart);
+            var o = {};
+            for(index in message) {
+              if(__eon_cols.indexOf(index) > -1){
+                o[__eon_labels[index] || index] = message[index];
+              }
+             }
+            return {
+              eon: o
+            };
+       }
+      }
+    });
+</script>
+    </div>
+    </div>
+</body>
+</html>

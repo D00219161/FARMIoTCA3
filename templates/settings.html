@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.29.8.min.js"></script>
+    <link rel ="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+</head>
+
+<nav id="nav">
+<ul>
+    <img src="static/img/logo.jpg" alt="logo" id="logo"/>
+    <h2>Homesafe</h2>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/electricity">Electricity Usage</a></li>
+    <li><a href="/temperature">Temperature Analysis</a></li>
+    <li><a href="/runningbill">Running Bill</a></li>
+    <li><a href="/colorscheme">Colour Scheme</a></li>
+</ul>
+</nav>
+
+
+<div class="row">
+<div class="columndate">
+    <label>Calendar: </label>
+    <input type="date" id="input">
+</div>
+</div>
+    <button class="button logout"><a href="/">Logout</a></button>
+    <button class="button settings"><a href="/settings">Settings</a></button>
+
+    <h1>Homesafe Settings</h1>
+
+
+<form id="form">
+    <h3>Change Password</h3> <label for="passchange"><input type="textbox" id="passchange" passchange="password" placeholder="James1234!"></label>
+    <h3>Set Target</h3> <label for="target"><input type="textbox" id="target" placeholder="€45.00"></label>
+    <h3>Set Trustee</h3> <label for="trustee"><input type="textbox" id="trustee" placeholder="James"></label>
+    <h3>Add Room</h3> <label for="room"><input type="textbox" id="room" placeholder="Living Room"></label>
+</form>
+<input type="submit" value="Save Changes" id="enter">
+</div>
+</body>
+</html>
